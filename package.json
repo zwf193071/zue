@@ -1,0 +1,28 @@
+{
+  "name": "zue",
+  "version": "1.0.0",
+  "description": "A simple MVVM tool, which imitates Vue.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zwf193071/zue.git"
+  },
+  "keywords": [
+    "Vue",
+    "Zue",
+    "MVVM"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zwf193071/zue/issues"
+  },
+  "homepage": "https://github.com/zwf193071/zue#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
