@@ -1,5 +1,6 @@
 import {
-    query
+    query,
+    isElementNode
 } from './utils.js';
 import stateMixin from './stateMixin.js';
 import lifecycleMixin from './lifecycleMixin.js';
@@ -10,7 +11,7 @@ export default class Zue {
     }
 
     init(options) {
-        const el = query(options.el);
+        const el = isElementNode(options.el) ? el : query(options.el);
         this.$options = options;
         this._initState();
         this._compile(el);

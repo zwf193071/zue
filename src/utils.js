@@ -4,7 +4,7 @@
  * @param {String|Element} el
  */
 
-function query(el) {
+function query (el) {
     return typeof el === 'string' ? document.querySelector(el) : el;
 }
 function extend (to, from) {
@@ -24,9 +24,17 @@ function toArray (list, start) {
     }
     return ret
 }
+function isElementNode (node) {
+  return node.nodeType == 1;
+}
+function isTextNode (node) {
+  return node.nodeType == 3;
+}
   
 export {   
     extend,
     query,
-    toArray
+    toArray,
+    isElementNode,
+    isTextNode
 }
