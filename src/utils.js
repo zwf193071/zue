@@ -3,7 +3,7 @@
  *
  * @param {String|Element} el
  */
-
+var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g;
 function query (el) {
     return typeof el === 'string' ? document.querySelector(el) : el;
 }
@@ -24,17 +24,34 @@ function toArray (list, start) {
     }
     return ret
 }
-function isElementNode (node) {
-  return node.nodeType == 1;
+/**
+ * Escape a string so it can be used in a RegExp
+ * constructor.
+ *
+ * @param {String} str
+ */
+
+function escapeRegex(str) {
+  return str.replace(regexEscapeRE, '\\$&');
+}
+function replace(target, el) {
+  var parent = target.parentNode;
+  if (parent) {
+    parent.replaceChild(el, target);
+  }
 }
 function isTextNode (node) {
   return node.nodeType == 3;
 }
-  
+function isElementNode (node) {
+  return node.nodeType == 1;
+}
 export {   
     extend,
     query,
     toArray,
-    isElementNode,
-    isTextNode
+    escapeRegex,
+    replace,
+    isTextNode,
+    isElementNode
 }
