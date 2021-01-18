@@ -13,21 +13,33 @@ function compileTextNode(node, vm) {
   });
   node.textContent = txt;
 }
+function compileNode(frag, vm) {
+  const childNodes = toArray(frag.childNodes);
+  childNodes.forEach(node => {
+    
+    if (isElementNode(node)) {
+      
+    } else if (isTextNode(node)) {
+      compileTextNode(node, vm);
+    }
+    if (node.childNodes && node.childNodes.length) {
+      vm._compile(node);
+    }
+  });
+}
+function node2Fragment(el) {
+  let fragment = document.createDocumentFragment(), child;
+
+  // 将原生节点拷贝到fragment
+  while (child = el.firstChild) {
+    fragment.appendChild(child);
+  }
+  return fragment;
+}
 export default function lifecycleMixin(Zue) {
   Zue.prototype._compile = function (el) {
-    const vm = this;
-    const childNodes = toArray(el.childNodes);
-    childNodes.forEach(node => {
-      const text = node.textContent;
-      
-      if (isElementNode(node)) {
-        
-      } else if (isTextNode(node)) {
-        compileTextNode(node, this);
-      }
-      if (node.childNodes && node.childNodes.length) {
-        vm._compile(node);
-      }
-    });
+    const frag = node2Fragment(el);
+    compileNode(frag, this);
+    el.appendChild(frag);
   }
 }
