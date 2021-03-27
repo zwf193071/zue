@@ -6,20 +6,45 @@
     <title>test</title>
 </head>
 <body>
-    <div id="app">This is a test{{msg}}<span v-if="showChild">{{text}}</span></div>
+    <div id="app">
+        <p>This is {{msg}}</p>
+        <p v-text="text"></p>
+        <p v-text="parent.father"></p>
+        <div v-html="htmlStr"></div>
+        <input type="text" v-model="msg"/>
+        <p>父亲：{{parent.father}}，母亲：{{parent.mother}}  <span>儿子：{{children.son}}，女儿：{{children.daughter}}</span></p>
+        <p v-if="showChild">showChild</p>
+        <button v-on:click="clickMe">clickMe</button>
+    </div>
+    
     <script type="module">
         import Zue from './src/zue.js'
 
-        {
-            new Zue({
-                el: '#app',
-                data: {
-                    msg: 666,
+        window.vm = new Zue({
+            el: '#app',
+            data() {
+                return {
+                    msg: 'test',
                     text: "lucy",
-                    showChild: false
+                    parent: {
+                        father: 'kai',
+                        mother: 'fang'
+                    },
+                    children: {
+                        son: 'yu',
+                        daughter: 'xi'
+                    },
+                    htmlStr: '<span>只是个测试</span>',
+                    showChild: true
                 }
-            })
-        }
+            },
+            methods: {
+                clickMe() {
+                    this.$data.msg = "learn vue"
+                }
+            }
+        })
+        console.log(vm)
     </script>
 </body>
 </html>

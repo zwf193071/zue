@@ -1,25 +1,28 @@
-import {
-    query,
-    isElementNode
-} from './utils.js';
-import stateMixin from './stateMixin.js';
-import lifecycleMixin from './lifecycleMixin.js';
 
+import Observer from './Observer.js'
+import Compile from './Compile.js'
 export default class Zue {
     constructor (options) {
         this.init(options);
     }
 
     init(options) {
-        const el = isElementNode(options.el) ? el : query(options.el);
+        if (!options.el) {
+            console.warn('el is required')
+            return
+        }
+        if (typeof options.data !== 'function') {
+            console.warn('data must be function')
+            return
+        }
+        this.$el = options.el;
         this.$options = options;
-        this._initState();
-        this._compile(el);
+        this.$data = options.data()
+        new Observer(this.$data)
+        new Compile(this.$el, this)
     }
 }
 
-stateMixin(Zue);
-lifecycleMixin(Zue);
 Zue.version = '0.0.1';
 
 
